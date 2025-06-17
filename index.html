@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catálogo Floricultura</title>
   <style>
+    /* Estilos gerais */
     body {
       font-family: Arial, sans-serif;
       background-image: url('fundo.jpg');
@@ -22,6 +23,7 @@
       border-radius: 8px;
     }
 
+    /* Barra de pesquisa */
     .search-container {
       display: flex;
       justify-content: center;
@@ -36,6 +38,7 @@
       border: 1px solid #ccc;
     }
 
+    /* Filtros de categoria */
     #filtros {
       text-align: center;
       margin-bottom: 20px;
@@ -56,6 +59,7 @@
       background-color: #219150;
     }
 
+    /* Catálogo de produtos */
     .catalogo {
       max-width: 1000px;
       margin: 0 auto;
@@ -63,12 +67,13 @@
       border-radius: 8px;
       padding: 15px;
       box-shadow: 0 0 10px #aaa;
-      display: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
     }
 
     .item {
       width: 46%;
-      float: left;
       margin: 2%;
       background-color: white;
       padding: 10px;
@@ -116,129 +121,28 @@
       background-color: #1f5f8b;
     }
 
-    .clearfix::after {
-      content: "";
-      display: table;
-      clear: both;
+    /* Responsivo: Tablet (iPad) */
+    @media (max-width: 1024px) {
+      .item {
+        width: 48%;
+        margin: 1%;
+      }
     }
 
-    #carrinho, #form-envio {
-      background: white;
-      padding: 15px;
-      margin-top: 30px;
-      max-width: 1000px;
-      margin-left: auto;
-      margin-right: auto;
-      border-radius: 6px;
-      box-shadow: 0 0 5px #ccc;
-      display: none;
-    }
-
-    #carrinho ul {
-      list-style: none;
-      padding-left: 0;
-      margin-bottom: 10px;
-      max-height: 250px;
-      overflow-y: auto;
-    }
-
-    #carrinho li {
-      padding: 5px 0;
-      border-bottom: 1px solid #eee;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    #carrinho li span {
-      flex-grow: 1;
-      min-width: 200px;
-    }
-
-    #carrinho input[type="number"] {
-      width: 50px;
-      margin: 0 5px;
-      padding: 2px 5px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1em;
-    }
-
-    #carrinho button {
-      background-color: #c0392b;
-      padding: 6px 10px;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 4px;
-      flex-shrink: 0;
-      margin-left: 10px;
-    }
-
-    #total {
-      font-weight: bold;
-      font-size: 1.2em;
-      text-align: right;
-      color: #27ae60;
-    }
-
-    label {
-      display: block;
-      margin-top: 10px;
-    }
-
-    input[type="text"], input[type="email"] {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      font-size: 1em;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
-
-    #form-envio button, #btn-whatsapp {
-      background-color: #2980b9;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1em;
-      margin-top: 10px;
-      width: 100%;
-      transition: background-color 0.3s ease;
-    }
-
-    #form-envio button:hover, #btn-whatsapp:hover {
-      background-color: #1f5f8b;
-    }
-
-    #btn-whatsapp {
-      margin-top: 15px;
-    }
-
-    /* === ZOOM NA IMAGEM === */
-    .zoom-toggle {
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-
-    .zoomed {
-      transform: scale(2);
-      z-index: 1000;
-      position: relative;
-    }
-
-    @media (max-width: 768px) {
+    /* Responsivo: Celular */
+    @media (max-width: 600px) {
       .item {
         width: 100%;
         margin: 10px 0;
       }
 
       #search {
-        width: 90%;
+        width: 100%;
+      }
+
+      #filtros button {
+        width: 100%;
+        margin-bottom: 8px;
       }
     }
   </style>
@@ -260,40 +164,12 @@
     <button onclick="filtrar('decorativos')">Objetos Decorativos</button>
   </div>
 
-  <div class="catalogo clearfix" id="catalogo">
+  <div class="catalogo" id="catalogo">
     <div class="item" data-categoria="buques" data-nome="Buquê de Rosas">
       <img src="buque1.jpg" alt="Buquê de Rosas">
       <h3>Buquê de Rosas</h3>
       <p>R$ 89,00</p>
       <button onclick="adicionarCarrinho('B001', 'Buquê de Rosas', 89.00)">Adicionar ao Carrinho</button>
-    </div>
-
-    <div class="item" data-categoria="buques" data-nome="Buquê de Noiva">
-      <img src="buque2.jpg" alt="Buquê de Noiva">
-      <h3>Buquê de Noiva</h3>
-      <p>R$ 199,00</p>
-      <button onclick="adicionarCarrinho('B002', 'Buquê de Noiva', 199.00)">Adicionar ao Carrinho</button>
-    </div>
-
-    <div class="item" data-categoria="plantas" data-nome="Samambaia">
-      <img src="Samambaia1.jpg" alt="Samambaia">
-      <h3>Samambaia</h3>
-      <p>R$ 45,00</p>
-      <button onclick="adicionarCarrinho('P001', 'Samambaia', 45.00)">Adicionar ao Carrinho</button>
-    </div>
-
-    <div class="item" data-categoria="arranjos" data-nome="Arranjo Primavera">
-      <img src="Primavera1.jpg" alt="Arranjo Primavera">
-      <h3>Arranjo Primavera</h3>
-      <p>R$ 120,00</p>
-      <button onclick="adicionarCarrinho('A001', 'Arranjo Primavera', 120.00)">Adicionar ao Carrinho</button>
-    </div>
-
-    <div class="item" data-categoria="vasos" data-nome="Vaso Azul">
-      <img src="vaso1.jpg" alt="Vaso Azul">
-      <h3>Vaso Azul</h3>
-      <p>R$ 75,00</p>
-      <button onclick="adicionarCarrinho('V001', 'Vaso Azul', 75.00)">Adicionar ao Carrinho</button>
     </div>
 
     <div class="item" data-categoria="decorativos" data-nome="Vaso Decorativo">
@@ -304,29 +180,8 @@
     </div>
   </div>
 
-  <div id="carrinho">
-    <h2>Seu Carrinho</h2>
-    <ul id="lista-carrinho"></ul>
-    <div id="total"></div>
-  </div>
-
-  <div id="form-envio">
-    <label for="vendedor">Vendedor:</label>
-    <input type="text" id="vendedor" placeholder="Seu nome" />
-
-    <label for="emailCliente">Email do Cliente:</label>
-    <input type="email" id="emailCliente" placeholder="email@cliente.com" />
-
-    <button onclick="imprimirPedido()">Imprimir Pedido</button>
-    <button onclick="enviarEmail()">Enviar Email</button>
-    <button id="btn-whatsapp" onclick="enviarPedidoWhatsApp()">Enviar WhatsApp</button>
-  </div>
-
   <script>
-    // Mostrar catálogo ao carregar página
-    document.getElementById('catalogo').style.display = 'block';
-
-    // Filtrar produtos
+    // Função para filtrar os produtos por categoria
     function filtrar(categoria) {
       const items = document.querySelectorAll('.catalogo .item');
       items.forEach(item => {
@@ -338,145 +193,42 @@
       });
     }
 
-    // Buscar produto ao pressionar Enter
-    document.getElementById('search').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
-        const busca = this.value.toLowerCase();
-        const items = document.querySelectorAll('.catalogo .item');
-        items.forEach(item => {
-          if (item.dataset.nome.toLowerCase().includes(busca)) {
-            item.style.display = 'block';
-          } else {
-            item.style.display = 'none';
-          }
-        });
-      }
-    });
-
-    // Carrinho
-    let carrinho = {};
-
+    // Função para adicionar produtos ao carrinho
     function adicionarCarrinho(codigo, nome, preco) {
-      if (carrinho[codigo]) {
-        carrinho[codigo].quantidade++;
-      } else {
-        carrinho[codigo] = { nome, preco, quantidade: 1 };
-      }
-      atualizarCarrinho();
+      alert("Adicionado ao carrinho: " + nome + " - R$ " + preco.toFixed(2));
     }
 
-    function atualizarCarrinho() {
-      const lista = document.getElementById('lista-carrinho');
-      lista.innerHTML = '';
-      let total = 0;
-      for (let codigo in carrinho) {
-        const item = carrinho[codigo];
-        total += item.preco * item.quantidade;
-        const li = document.createElement('li');
-
-        li.innerHTML = `
-          <span>${item.nome} - R$ ${item.preco.toFixed(2)}</span>
-          <input type="number" min="1" value="${item.quantidade}" onchange="alterarQuantidade('${codigo}', this.value)">
-          <button onclick="removerItem('${codigo}')">X</button>
-        `;
-        lista.appendChild(li);
-      }
-      document.getElementById('total').textContent = `Total: R$ ${total.toFixed(2)}`;
-
-      document.getElementById('carrinho').style.display = Object.keys(carrinho).length ? 'block' : 'none';
-      document.getElementById('form-envio').style.display = Object.keys(carrinho).length ? 'block' : 'none';
+    // Função para carregar os preços do arquivo 'precos.txt'
+    function carregarPrecosDoArquivo() {
+      fetch('precos.txt')
+        .then(r => r.text())
+        .then(texto => {
+          texto.split('\n').forEach(linha => {
+            const [codigo, nome, precoStr] = linha.trim().split(';');
+            if (codigo && nome && precoStr) {
+              const preco = parseFloat(precoStr);
+              atualizarPrecoProduto(codigo, preco);
+            }
+          });
+        });
     }
 
-    function alterarQuantidade(codigo, quantidade) {
-      quantidade = parseInt(quantidade);
-      if (quantidade <= 0) {
-        removerItem(codigo);
-      } else {
-        carrinho[codigo].quantidade = quantidade;
-      }
-      atualizarCarrinho();
-    }
-
-    function removerItem(codigo) {
-      delete carrinho[codigo];
-      atualizarCarrinho();
-    }
-
-    // Função atualizada para abrir janela de impressão formatada
-    function imprimirPedido() {
-      let textoHTML = `<h1>Pedido</h1><ul>`;
-      for (let codigo in carrinho) {
-        const item = carrinho[codigo];
-        textoHTML += `<li>${item.nome} - Quantidade: ${item.quantidade} - Total: R$ ${(item.preco * item.quantidade).toFixed(2)}</li>`;
-      }
-      const totalGeral = Object.values(carrinho).reduce((acc, i) => acc + i.preco * i.quantidade, 0).toFixed(2);
-      textoHTML += `</ul><h3>Total Geral: R$ ${totalGeral}</h3>`;
-
-      const janelaImpressao = window.open('', '', 'width=600,height=400');
-      janelaImpressao.document.write(`
-        <html>
-        <head>
-          <title>Imprimir Pedido</title>
-          <style>
-            body { font-family: Arial, sans-serif; padding: 20px; }
-            h1 { color: #2980b9; }
-            ul { list-style: none; padding: 0; }
-            li { margin-bottom: 10px; font-weight: bold; }
-            h3 { color: #27ae60; }
-          </style>
-        </head>
-        <body>
-          ${textoHTML}
-        </body>
-        </html>
-      `);
-      janelaImpressao.document.close();
-      janelaImpressao.focus();
-      janelaImpressao.print();
-      janelaImpressao.close();
-    }
-
-    // Função atualizada para abrir cliente de email com pedido no corpo
-    function enviarEmail() {
-      const emailCliente = document.getElementById('emailCliente').value.trim();
-      if (!emailCliente) {
-        alert('Por favor, preencha o email do cliente.');
-        return;
-      }
-
-      let corpoEmail = 'Olá! Segue o pedido:%0D%0A%0D%0A';
-      for (let codigo in carrinho) {
-        const item = carrinho[codigo];
-        corpoEmail += `${item.nome} - Quantidade: ${item.quantidade} - Total: R$ ${(item.preco * item.quantidade).toFixed(2)}%0D%0A`;
-      }
-      const totalGeral = Object.values(carrinho).reduce((acc, i) => acc + i.preco * i.quantidade, 0).toFixed(2);
-      corpoEmail += `%0D%0ATotal Geral: R$ ${totalGeral}`;
-
-      const vendedor = document.getElementById('vendedor').value.trim();
-      const assunto = encodeURIComponent('Pedido Floricultura' + (vendedor ? ` - ${vendedor}` : ''));
-
-      window.location.href = `mailto:${emailCliente}?subject=${assunto}&body=${corpoEmail}`;
-    }
-
-    // Enviar pedido pelo WhatsApp
-    function enviarPedidoWhatsApp() {
-      let mensagem = 'Olá! Gostaria de fazer o seguinte pedido:\n\n';
-      for (let codigo in carrinho) {
-        const item = carrinho[codigo];
-        mensagem += `${item.nome} - Quantidade: ${item.quantidade} - Total: R$ ${(item.preco * item.quantidade).toFixed(2)}\n`;
-      }
-      mensagem += `\nTotal Geral: R$ ${Object.values(carrinho).reduce((acc, i) => acc + i.preco * i.quantidade, 0).toFixed(2)}`;
-      mensagem = encodeURIComponent(mensagem);
-      window.open(`https://wa.me/?text=${mensagem}`, '_blank');
-    }
-
-    // === ZOOM NA IMAGEM ===
-    document.querySelectorAll('.item img').forEach(img => {
-      img.classList.add('zoom-toggle');
-      img.addEventListener('click', function () {
-        this.classList.toggle('zoomed');
+    // Função para atualizar o preço de um produto específico
+    function atualizarPrecoProduto(codigo, novoPreco) {
+      document.querySelectorAll(`.item button[onclick*="${codigo}"]`).forEach(botao => {
+        const item = botao.closest('.item');
+        if (item) {
+          item.querySelector('p').textContent = "R$ " + novoPreco.toFixed(2).replace('.', ',');
+          const nomeProduto = item.dataset.nome;
+          botao.setAttribute('onclick', `adicionarCarrinho('${codigo}', '${nomeProduto}', ${novoPreco})`);
+        }
       });
-    });
+    }
+
+    // Atualiza os preços ao carregar a página e a cada 60 segundos
+    window.addEventListener('load', carregarPrecosDoArquivo);
+    setInterval(carregarPrecosDoArquivo, 60000);
   </script>
+
 </body>
 </html>
