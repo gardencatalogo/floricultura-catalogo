@@ -1,0 +1,8 @@
+
+B002;Buquê de Noiva;210.00
+P001;Samambaia;50.00
+A001;Arranjo Primavera;125.00
+V001;Vaso Azul;80.00
+
+B001;Buquê de Rosas;92.50
+D001;Vaso Decorativo;59.90
